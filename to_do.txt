@@ -1,0 +1,7 @@
+- User Interface: health bar, ...
+- Bullets damage
+- Better Sprites
+- Tanks animation
+- Make your maps
+- Sounds
+- Refactoring 

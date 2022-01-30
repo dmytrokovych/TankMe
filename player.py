@@ -14,7 +14,6 @@ class Player(pygame.sprite.Sprite):
         self.hitbox = self.rect.inflate(0, -26)
 
         # graphics setup
-        self.import_player_assets()
         self.status = 'down'
         self.frame_index = 0
         self.animation_speed = 0.15
@@ -25,12 +24,12 @@ class Player(pygame.sprite.Sprite):
         self.attacking = False
         self.attack_cooldown = 100
         self.attack_time = None
+        self.key_set = {}
 
         self.obstacle_sprites = obstacle_sprites
         self.bullets = pygame.sprite.Group()
 
-    def import_player_assets(self):
-        character_path = 'graphics/player/'
+    def import_player_assets(self, character_path):
         self.animations = {'up': [], 'down': [], 'left': [], 'right': [],
                            'right_idle': [], 'left_idle': [], 'up_idle': [], 'down_idle': [],
                            'right_attack': [], 'left_attack': [], 'up_attack': [], 'down_attack': []}
@@ -43,19 +42,19 @@ class Player(pygame.sprite.Sprite):
         keys = pygame.key.get_pressed()
 
         # movement input
-        if keys[pygame.K_UP]:
+        if keys[self.key_set['up']]:
             self.direction.y = -1
             self.status = 'up'
-        elif keys[pygame.K_DOWN]:
+        elif keys[self.key_set['down']]:
             self.direction.y = 1
             self.status = 'down'
         else:
             self.direction.y = 0
 
-        if keys[pygame.K_RIGHT]:
+        if keys[self.key_set['right']]:
             self.direction.x = 1
             self.status = 'right'
-        elif keys[pygame.K_LEFT]:
+        elif keys[self.key_set['left']]:
             self.direction.x = -1
             self.status = 'left'
         else:
@@ -63,16 +62,10 @@ class Player(pygame.sprite.Sprite):
 
         if not self.attacking:
             # attack input
-            if keys[pygame.K_SPACE]:
+            if keys[self.key_set['fire']]:
                 self.attacking = True
                 self.attack_time = pygame.time.get_ticks()
-                self.bullets.add(
-                    Bullet((self.rect.centerx - 5, self.rect.centery - 20), self.direction, self.status))
-
-            # magic input
-            if keys[pygame.K_LCTRL]:
-                self.attacking = True
-                self.attack_time = pygame.time.get_ticks()
+                self.bullets.add(Bullet((self.rect.centerx - 5, self.rect.centery - 20), self.direction, self.status))
 
     def get_bullets(self):
         return self.bullets
@@ -152,3 +145,28 @@ class Player(pygame.sprite.Sprite):
         self.get_status()
         self.animate()
         self.move(self.speed)
+
+
+class LeftPlayer(Player):
+    def __init__(self, pos, groups, obstacle_sprites):
+        super().__init__(pos, groups, obstacle_sprites)
+        self.import_player_assets('graphics/player_left/')
+        self.key_set = {'up': pygame.K_w,
+                        'down': pygame.K_s,
+                        'left': pygame.K_a,
+                        'right': pygame.K_d,
+                        'fire': pygame.K_SPACE}
+
+    
+
+class RightPlayer(Player):
+    def __init__(self, pos, groups, obstacle_sprites):
+        super().__init__(pos, groups, obstacle_sprites)
+        self.import_player_assets('graphics/player_right/')
+        self.key_set = {'up': pygame.K_UP,
+                        'down': pygame.K_DOWN,
+                        'left': pygame.K_LEFT,
+                        'right': pygame.K_RIGHT,
+                        'fire': pygame.K_RCTRL}
+
+   

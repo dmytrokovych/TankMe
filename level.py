@@ -1,8 +1,9 @@
 from time import sleep
+from chess import BLACK
 import pygame
 from settings import *
 from tile import Tile
-from player import Player
+from player import LeftPlayer, RightPlayer
 from debug import debug
 from support import *
 from random import choice
@@ -47,15 +48,16 @@ class Level:
                             Tile((x, y), [self.visible_sprites,
                                  self.obstacle_sprites], 'object', surf)
 
-        self.player_left = Player(
-            (2000, 1430), [self.visible_sprites], self.obstacle_sprites)
-        self.player_right = Player(
-            (2100, 1430), [self.visible_sprites], self.obstacle_sprites)
+        self.player_left = LeftPlayer(
+            (2000, 1400), [self.visible_sprites], self.obstacle_sprites)
+        self.player_right = RightPlayer(
+            (2100, 1400), [self.visible_sprites], self.obstacle_sprites)
 
     def run(self):
         # update and draw the game
 
         self.bullets = self.player_left.get_bullets()
+        self.bullets.add(self.player_right.get_bullets())
         self.visible_sprites.add(self.bullets)
 
         for bullet in self.bullets:
@@ -83,7 +85,7 @@ class YSortCameraGroup(pygame.sprite.Group):
 
     def custom_draw(self, player_left, pos='left'):
 
-        self.display_surface_half= pygame.Surface((WIDTH//2, HEIGTH))
+        self.display_surface_half = pygame.Surface((WIDTH//2, HEIGTH))
 
         self.half_width = WIDTH // 4
         self.half_height = HEIGTH // 2
@@ -100,8 +102,10 @@ class YSortCameraGroup(pygame.sprite.Group):
         for sprite in sorted(self.sprites(), key=lambda sprite: sprite.rect.centery):
             offset_pos = sprite.rect.topleft - self.offset
             self.display_surface_half.blit(sprite.image, offset_pos)
-        
+
         if pos == 'left':
             self.display_surface.blit(self.display_surface_half, (0, 0))
         elif pos == 'right':
-         self.display_surface.blit(self.display_surface_half, (WIDTH // 2, 0))
+            self.display_surface.blit(self.display_surface_half, (WIDTH // 2, 0))
+
+        pygame.draw.line(self.display_surface, BLACK, (WIDTH // 2, 0), (WIDTH // 2, HEIGTH), 2)
