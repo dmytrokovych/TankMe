@@ -1,4 +1,3 @@
-from time import sleep
 from chess import BLACK
 import pygame
 from settings import *
@@ -71,9 +70,8 @@ class Level:
 
 class YSortCameraGroup(pygame.sprite.Group):
     def __init__(self):
-
-        # general setup
         super().__init__()
+
         # get the display surface (from anywhere)
         self.display_surface = pygame.display.get_surface()
         self.offset = pygame.math.Vector2()
@@ -83,16 +81,16 @@ class YSortCameraGroup(pygame.sprite.Group):
             'graphics/tilemap/ground.png').convert()
         self.floor_rect = self.floor_surf.get_rect(topleft=(0, 0))
 
-    def custom_draw(self, player_left, pos='left'):
+    def custom_draw(self, player, pos='left'):
 
-        self.display_surface_half = pygame.Surface((WIDTH//2, HEIGTH))
+        self.display_surface_half = pygame.Surface((WIDTH // 2, HEIGTH))
 
         self.half_width = WIDTH // 4
         self.half_height = HEIGTH // 2
 
         # getting the offset
-        self.offset.x = player_left.rect.centerx - self.half_width
-        self.offset.y = player_left.rect.centery - self.half_height
+        self.offset.x = player.rect.centerx - self.half_width
+        self.offset.y = player.rect.centery - self.half_height
 
         # drawing the floor
         floor_offset_pos = self.floor_rect.topleft - self.offset
@@ -106,6 +104,8 @@ class YSortCameraGroup(pygame.sprite.Group):
         if pos == 'left':
             self.display_surface.blit(self.display_surface_half, (0, 0))
         elif pos == 'right':
-            self.display_surface.blit(self.display_surface_half, (WIDTH // 2, 0))
+            self.display_surface.blit(
+                self.display_surface_half, (WIDTH // 2, 0))
 
-        pygame.draw.line(self.display_surface, BLACK, (WIDTH // 2, 0), (WIDTH // 2, HEIGTH), 2)
+        pygame.draw.line(self.display_surface, BLACK,
+                         (WIDTH // 2, 0), (WIDTH // 2, HEIGTH), 2)
