@@ -16,7 +16,7 @@ class Player(pygame.sprite.Sprite):
         # graphics setup
         self.status = 'down'
         self.frame_index = 0
-        self.animation_speed = 0.15
+        self.animation_speed = 0.5
 
         # movement
         self.direction = pygame.math.Vector2()
@@ -65,7 +65,7 @@ class Player(pygame.sprite.Sprite):
             if keys[self.key_set['fire']]:
                 self.attacking = True
                 self.attack_time = pygame.time.get_ticks()
-                self.bullets.add(Bullet((self.rect.centerx - 5, self.rect.centery - 20), self.direction, self.status))
+                self.bullets.add(Bullet((self.rect.centerx - 5, self.rect.centery - 15), self.direction, self.status))
 
     def get_bullets(self):
         return self.bullets
