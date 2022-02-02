@@ -6,6 +6,7 @@ from player import LeftPlayer, RightPlayer
 from debug import debug
 from support import *
 from random import choice
+from ui import UI
 
 
 class Level:
@@ -18,6 +19,9 @@ class Level:
 
         # sprite setup
         self.create_map()
+
+        # user interface
+        self.ui = UI()
 
     def create_map(self):
         layouts = {
@@ -66,6 +70,9 @@ class Level:
         self.visible_sprites.custom_draw(self.player_left, pos='left')
         self.visible_sprites.custom_draw(self.player_right, pos='right')
         self.visible_sprites.update()
+
+        self.ui.display(self.player_left)
+        self.ui.display(self.player_right)
 
 
 class YSortCameraGroup(pygame.sprite.Group):

@@ -20,7 +20,6 @@ class Player(pygame.sprite.Sprite):
 
         # movement
         self.direction = pygame.math.Vector2()
-        self.speed = 5
         self.attacking = False
         self.attack_cooldown = 100
         self.attack_time = None
@@ -28,6 +27,12 @@ class Player(pygame.sprite.Sprite):
 
         self.obstacle_sprites = obstacle_sprites
         self.bullets = pygame.sprite.Group()
+
+        # stats
+        self.stats = {'health': 100, 'energy': 60, 'attack': 10, 'speed': 5}
+        self.health = self.stats['health']
+        self.energy = self.stats['energy']
+        self.speed = self.stats['speed']
 
     def import_player_assets(self, character_path):
         self.animations = {'up': [], 'down': [], 'left': [], 'right': [],
