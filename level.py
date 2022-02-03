@@ -71,8 +71,8 @@ class Level:
         self.visible_sprites.custom_draw(self.player_right, pos='right')
         self.visible_sprites.update()
 
-        self.ui.display(self.player_left)
-        self.ui.display(self.player_right)
+        self.ui.display(self.player_left, position='left')
+        self.ui.display(self.player_right, position='right')
 
 
 class YSortCameraGroup(pygame.sprite.Group):
