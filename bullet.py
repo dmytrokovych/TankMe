@@ -20,12 +20,14 @@ class Bullet(pygame.sprite.Sprite):
         else:
             self.direction = direction
 
-        self.velocity = 10
+        pos += self.direction * int(TILESIZE * 0.7)
 
         super().__init__()
         self.image = pygame.Surface([10, 10])
         self.image.fill((255, 0, 0))
-        self.rect = self.image.get_rect(topleft=pos)
+        self.rect = self.image.get_rect(center=pos)
+
+        self.velocity = 10
 
     def update(self):
         self.rect.x += self.velocity * self.direction[0]

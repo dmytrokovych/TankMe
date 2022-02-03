@@ -71,6 +71,9 @@ class Level:
         self.visible_sprites.custom_draw(self.player_right, pos='right')
         self.visible_sprites.update()
 
+        self.player_left.damage_collision(self.bullets)
+        self.player_right.damage_collision(self.bullets)
+
         self.ui.display(self.player_left, position='left')
         self.ui.display(self.player_right, position='right')
 

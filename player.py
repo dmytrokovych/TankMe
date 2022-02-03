@@ -43,6 +43,10 @@ class Player(pygame.sprite.Sprite):
             full_path = character_path + animation
             self.animations[animation] = import_folder(full_path)
 
+    def fire(self):
+        self.bullets.add(
+            Bullet((self.rect.centerx, self.rect.centery), self.direction, self.status))
+
     def input(self):
         keys = pygame.key.get_pressed()
 
@@ -70,7 +74,7 @@ class Player(pygame.sprite.Sprite):
             if keys[self.key_set['fire']]:
                 self.attacking = True
                 self.attack_time = pygame.time.get_ticks()
-                self.bullets.add(Bullet((self.rect.centerx - 5, self.rect.centery - 15), self.direction, self.status))
+                self.fire()
 
     def get_bullets(self):
         return self.bullets
@@ -142,6 +146,14 @@ class Player(pygame.sprite.Sprite):
         self.image = animation[int(self.frame_index)]
         self.rect = self.image.get_rect(center=self.hitbox.center)
 
+    def damage_collision(self, all_bullets):
+        # collision with bullets
+        if pygame.sprite.spritecollide(self, all_bullets, True):
+            if self.health > 0:
+                self.health -= 1
+            else:
+                print('END')
+
     def update(self):
         self.input()
         self.cooldowns()
@@ -160,7 +172,6 @@ class LeftPlayer(Player):
                         'right': pygame.K_d,
                         'fire': pygame.K_SPACE}
 
-    
 
 class RightPlayer(Player):
     def __init__(self, pos, groups, obstacle_sprites):
@@ -171,5 +182,3 @@ class RightPlayer(Player):
                         'left': pygame.K_LEFT,
                         'right': pygame.K_RIGHT,
                         'fire': pygame.K_RCTRL}
-
-   
