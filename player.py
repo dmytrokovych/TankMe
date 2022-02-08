@@ -103,6 +103,9 @@ class Player(pygame.sprite.Sprite):
         3. apply vertical movement
         4. check vertical collisions
         """
+        if self.energy <= 0:
+            speed = 0
+            self.energy = 10
 
         if self.direction.magnitude() != 0:
             self.direction = self.direction.normalize()
@@ -112,6 +115,10 @@ class Player(pygame.sprite.Sprite):
         self.hitbox.y += self.direction.y * speed
         self.collision('vertical')
         self.rect.center = self.hitbox.center
+
+        if not 'idle' in self.status:
+            self.energy -= 0.01
+        
 
     def collision(self, direction):
         for sprite in self.obstacle_sprites:
@@ -150,9 +157,9 @@ class Player(pygame.sprite.Sprite):
         # collision with bullets
         if pygame.sprite.spritecollide(self, all_bullets, True):
             if self.health > 0:
-                self.health -= 1
+                self.health -= 5
             else:
-                print('END')
+                self.health = 100
 
     def update(self):
         self.input()

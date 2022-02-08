@@ -24,7 +24,7 @@ class Bullet(pygame.sprite.Sprite):
 
         super().__init__()
         self.image = pygame.Surface([10, 10])
-        self.image.fill((255, 0, 0))
+        self.image.fill((0, 0, 0))
         self.rect = self.image.get_rect(center=pos)
 
         self.velocity = 10

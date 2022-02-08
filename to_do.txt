@@ -1,7 +1,6 @@
-- User Interface: health bar, ...
-- Bullets damage
+- Fuel
+- bullets collision - particle effect (partile as a sprite (to hide behind the trees))
 - Better Sprites
-- Tanks animation
 - Make your maps
 - Sounds
 - Refactoring 
