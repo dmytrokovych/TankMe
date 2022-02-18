@@ -1,6 +1,6 @@
 # game setup
-WIDTH = 1280 * 4//5
-HEIGTH = 720 * 4//5
+WIDTH = 1280 * 5//5
+HEIGTH = 720 * 5//5
 FPS = 60
 TILESIZE = 64
 
@@ -13,7 +13,7 @@ UI_FONT = './graphics/font/joystix.ttf'
 UI_FONT_SIZE = 18
 
 # general colors
-WATER_COLOR = '#71ddee'
+WATER_COLOR = (94, 218, 236, 255)
 UI_BG_COLOR = '#222222'
 UI_BORDER_COLOR = '#111111'
 TEXT_COLOR = '#EEEEEE'

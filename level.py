@@ -26,9 +26,9 @@ class Level:
 
     def create_map(self):
         layouts = {
-            'boundary': import_csv_layout('map/map_FloorBlocks.csv'),
-            'grass':    import_csv_layout('map/map_Grass.csv'),
-            'object':   import_csv_layout('map/map_Objects.csv'),
+            'boundary': import_csv_layout('map1/map_FloorBlocks.csv'),
+            'grass':    import_csv_layout('map1/map_Grass.csv'),
+            'object':   import_csv_layout('map1/map_Objects.csv'),
         }
         graphics = {
             'grass':    import_folder('graphics/Grass'),
@@ -53,9 +53,9 @@ class Level:
                                  self.obstacle_sprites], 'object', surf)
 
         self.player_left = LeftPlayer(
-            (2000, 1400), [self.visible_sprites], self.obstacle_sprites)
+            (3*64, 3*64), [self.visible_sprites], self.obstacle_sprites)
         self.player_right = RightPlayer(
-            (2100, 1400), [self.visible_sprites], self.obstacle_sprites)
+            (3*64, 4*64), [self.visible_sprites], self.obstacle_sprites)
 
     def run(self):
         # update and draw the game
@@ -90,12 +90,13 @@ class YSortCameraGroup(pygame.sprite.Group):
 
         # creating the floor
         self.floor_surf = pygame.image.load(
-            'graphics/tilemap/ground.png').convert()
+            'graphics/tilemap/ground1.png').convert()
         self.floor_rect = self.floor_surf.get_rect(topleft=(0, 0))
 
     def custom_draw(self, player, pos='left'):
 
         self.display_surface_half = pygame.Surface((WIDTH // 2, HEIGTH))
+        self.display_surface_half.fill(WATER_COLOR)
 
         self.half_width = WIDTH // 4
         self.half_height = HEIGTH // 2

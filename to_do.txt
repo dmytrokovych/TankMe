@@ -4,3 +4,4 @@
 - Make your maps
 - Sounds
 - Refactoring 
+- players initial position in mapeditor
