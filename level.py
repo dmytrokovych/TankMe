@@ -7,6 +7,7 @@ from debug import debug
 from support import *
 from random import choice
 from ui import UI
+from particles import Particle, make_particles
 
 
 class Level:
@@ -65,6 +66,7 @@ class Level:
 
         for bullet in self.bullets:
             if pygame.sprite.spritecollide(bullet, self.obstacle_sprites, False):
+                make_particles(2, bullet.rect.center, [self.visible_sprites])
                 bullet.kill()
 
         self.visible_sprites.custom_draw(self.player_left, pos='left')
