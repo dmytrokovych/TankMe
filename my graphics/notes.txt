@@ -1,8 +1,0 @@
-Remove background: 
-https://www.remove.bg/upload
-
-TO-DO:
-- draw up and left
-- add move animation
-- add fire animation (tank shrinks like in cartoon)
-- make script, which swap the colors (in all files)
