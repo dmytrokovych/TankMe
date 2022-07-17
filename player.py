@@ -2,7 +2,6 @@ import pygame
 from settings import *
 from support import import_folder
 from bullet import Bullet
-from debug import debug
 
 
 class Player(pygame.sprite.Sprite):

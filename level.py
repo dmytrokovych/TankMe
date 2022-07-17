@@ -3,7 +3,6 @@ import pygame
 from settings import *
 from tile import Tile
 from player import LeftPlayer, RightPlayer
-from debug import debug
 from support import *
 from random import choice
 from ui import UI
@@ -26,9 +25,9 @@ class Level:
 
     def create_map(self):
         layouts = {
-            'boundary': import_csv_layout('map1/map_FloorBlocks.csv'),
-            'grass':    import_csv_layout('map1/map_Grass.csv'),
-            'object':   import_csv_layout('map1/map_Objects.csv'),
+            'boundary': import_csv_layout('map/map_FloorBlocks.csv'),
+            'grass':    import_csv_layout('map/map_Grass.csv'),
+            'object':   import_csv_layout('map/map_Objects.csv'),
         }
         graphics = {
             'grass':    import_folder('graphics/Grass'),
@@ -90,7 +89,7 @@ class YSortCameraGroup(pygame.sprite.Group):
 
         # creating the floor
         self.floor_surf = pygame.image.load(
-            'graphics/tilemap/ground1.png').convert()
+            'graphics/tilemap/ground.png').convert()
         self.floor_rect = self.floor_surf.get_rect(topleft=(0, 0))
 
     def custom_draw(self, player, pos='left'):
