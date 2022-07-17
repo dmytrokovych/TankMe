@@ -1,7 +1,0 @@
-- Fuel
-- bullets collision - particle effect (partile as a sprite (to hide behind the trees))
-- Better Sprites
-- Make your maps
-- Sounds
-- Refactoring 
-- players initial position in mapeditor
